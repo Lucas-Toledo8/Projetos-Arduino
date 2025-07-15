@@ -53,7 +53,7 @@ python core/main.py
 **Caso tenha que mudar 'Porta Serial' no Python acesse core/main.py:**
 
 ```bash
-Altere está o valor ex.: 'COM123'
+Altere o valor ex.: 'COM123'
 SERIAL_PORT = 'COMX'
 ```
 
