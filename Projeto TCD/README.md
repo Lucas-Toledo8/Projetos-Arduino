@@ -53,8 +53,8 @@ python core/main.py
 **Caso tenha que mudar 'Porta Serial' no Python acesse core/main.py:**
 
 ```bash
-Altere está linha 15 no codigo ex.: 'COMx'
-SERIAL_PORT = 'COM3'
+Altere está o valor ex.: 'COM123'
+SERIAL_PORT = 'COMX'
 ```
 
 **Se for no Linux vai depender de qual distro linux as usa porta serial:**
