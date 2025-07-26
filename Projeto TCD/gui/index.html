@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Pratico</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <header>
+        <img src="assets/icons/ifmt_logo.svg" alt="Logo IFMT" class="logo">
+        <h1>Engenharia da Computação</h1>
+        <div class="header-icons">
+            <img src="assets/icons/arduino-logo.svg" alt="Arduino Logo" class="icon">
+            <img src="assets/icons/python-svgrepo-com.svg" alt="RF Icon" class="icon">
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="left-column">
+            <div class="card status-card">
+                <h2>Arduino Status</h2>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <img src="assets/icons/arduino-logo.svg" alt="Board Icon" class="status-icon">
+                        <h4>Arduino</h4>
+                        <span id="arduinoConnectionStatusDisplay" class="new-status-display"></span> 
+                    </div>
+                    <div class="status-item">
+                        <img src="assets/icons/data-svgrepo-com.svg" alt="Frames Icon" class="status-icon">
+                        <h4>Frames</h4>
+                        <div class="status-frames-container">
+                            <span id="packetsCount" class="status-frames">Pacotes: N/A</span>
+                            <span class="status-frames">Tamanho:</span> 
+                            <span id="totalBytesSent" class="status-frames">N/A</span> 
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <img src="assets/icons/satellite-dish-svgrepo-com.svg" alt="Emitter Icon" class="status-icon">
+                        <h4>Emissor</h4>
+                        <span id="emitterModuleStatusDisplay" class="new-status-display"></span>
+                    </div>
+                    <div class="status-item">
+                        <img id="icon_receptor" src="assets/icons/satellite-dish-svgrepo-com.svg" alt="Receiver Icon" class="status-icon">
+                        <h4>Receptor</h4>
+                        <span id="receiverModuleStatusDisplay" class="new-status-display"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card status-card">
+                <h2>Python Status</h2>
+                <div class="status-grid">
+                    <div class="status-item">
+                        <img src="assets/icons/python-svgrepo-com.svg" alt="Board Icon" class="status-icon">
+                        <h4>Python</h4>
+                        <span id="arduinoStatus" class="status-ok">OK</span> 
+                    </div>
+                    <div class="status-item">
+                        <img src="assets/icons/data-svgrepo-com.svg" alt="Frames Icon" class="status-icon">
+                        <h4>Frames</h4>
+                        <div class="status-frames-container">
+                            <span id="packetsCount" class="status-frames">Pacotes: N/A</span>
+                            <span class="status-frames">Tamanho:</span> 
+                            <span id="totalBytesSent" class="status-frames">N/A</span> 
+                        </div>
+                    </div>
+                    <div class="status-item">
+                        <img src="assets/icons/arquivo_divido.svg" alt="Emitter Icon" class="status-icon">
+                        <h4>Enviado</h4>
+                        <span id="emitterStatus" class="status-sending"></span>
+                    </div>
+                    <div class="status-item">
+                        <img id="icon_receptor" src="assets/icons/aquivo-melhor.svg" alt="Receiver Icon" class="status-icon">
+                        <h4>Arquivo</h4>
+                        <span id="receiverStatus" class="status-receiving">N/A</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card status-connectivity-card">
+                <h2>POST Status de Conectividade</h2>
+                <div class="connectivity-item">
+                    <img src="assets/icons/pc-tower-svgrepo-com.svg" alt="Computer Icon" class="connectivity-icon">
+                    <p>Computador</p><span id="statusComputer"></span>
+                </div>
+                <div class="connectivity-item">
+                    <img src="assets/icons/usb-cable-hardware-plug-equipment-svgrepo-com.svg" alt="USB Icon" class="connectivity-icon">
+                    <p>Porta Serial</p><span id="statusSerialPort"></span>
+                </div>
+                <div class="connectivity-item">
+                    <img src="assets/icons/circuit-board-microchip-svgrepo-com.svg" alt="Arduino Icon" class="connectivity-icon">
+                    <p>Arduino</p><span id="statusArduino"></span>
+                </div>
+                <div class="connectivity-item">
+                    <img src="assets/icons/protoboard-svgrepo-com.svg" alt="RF Emitter Icon" class="connectivity-icon">
+                    <p>Módulo RF Emissor 433MHz</p><span id="statusRFEmitter"></span>
+                </div>
+                <div class="connectivity-item">
+                    <img src="assets/icons/protoboard-svgrepo-com.svg" alt="RF Receiver Icon" class="connectivity-icon">
+                    <p>Módulo RF Receptor 433MHz</p><span id="statusRFReceiver"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="card">
+                <h2>Painel de Arquivo</h2>
+                <p>Selecione o arquivo que deseja enviar para o Arduino.</p>
+                <button onclick="sendFile()">Escolher ficheiro</button>
+                <span id="filePathDisplay">Nenhum ficheiro selecionado</span>
+                <p class="file-info">O tamanho máximo é 1mb.</p>
+
+                <h3>Progresso de Envio</h3>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+                    <span class="progress-percentage-text" id="progressPercentageText">0%</span>
+                </div>
+                <button onclick="startSendingFile()" id="startButton">Iniciar Envio de Arquivo</button>
+                <button onclick="cancelSendingFile()" id="cancelButton" class="cancel-button" style="display: none;">Cancelar Envio</button>
+            </div>
+            
+            <div class="card">
+                <h2>Logs da Aplicação</h2>
+                <textarea id="logArea" rows="15" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

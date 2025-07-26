@@ -1,0 +1,325 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #1431d6e7;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header .logo {
+    height: 50px;
+    margin-right: 15px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.header-icons .icon {
+    height: 40px;
+    filter: invert(50%); /* Para ícones brancos */
+}
+
+.main-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+    padding: 20px;
+    gap: 20px;
+    flex-grow: 1;
+    justify-content: center; /* Centraliza as colunas */
+}
+
+.left-column, .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1; /* Permite que as colunas cresçam */
+    min-width: 300px; /* Largura mínima para cada coluna */
+    max-width: 45%; /* Limita a largura máxima para duas colunas */
+}
+
+@media (max-width: 1024px) {
+    .left-column, .right-column {
+        max-width: 100%; /* Em telas menores, ocupam a largura total */
+    }
+}
+
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+h2 {
+    color: #007bff;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+input[type="text"], button {
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* NOVO: Estilo para o botão de cancelar */
+.cancel-button {
+    background-color: #dc3545; /* Cor vermelha para cancelar */
+    margin-top: 10px; /* Um pouco de espaço acima */
+}
+
+.cancel-button:hover {
+    background-color: #c82333;
+}
+
+#logArea {
+    width: calc(100% - 20px);
+    background-color: #e9ecef;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #333;
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 150px;
+    border-radius: 6px;
+}
+
+/* ---------------------------------------------------- */
+/* >>> REVISÃO DAS CLASSES DE STATUS GERAIS (cards de Emissor/Receptor) <<< */
+/* Estas classes são aplicadas via updateCardStatus(cardId, statusText) */
+/* ---------------------------------------------------- */
+
+/* Status Cards (para os cards de Emissor/Receptor) */
+.status-card .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.status-item {
+    background-color: #f8f9fa;
+    border: 1px solid #e2e6ea;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-item .status-icon {
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+/* >>> AQUI: as classes que já existiam, mas com cores específicas <<< */
+.status-ok { /* Usado para "OK", "Concluído", "Parado", "Pronto" nos cards principais */
+    color: #28a745; /* Verde */
+    font-weight: bold;
+}
+.status-sending { /* Usado para "Enviando" */
+    color: #ffc107; /* Laranja/Amarelo */
+    font-weight: bold;
+}
+.status-receiving { /* Usado para "Recebendo", "Aguardando" */
+    color: #17a2b8; /* Azul claro */
+    font-weight: bold;
+}
+.status-error { /* Usado para "Erro", "Cancelado", "Falha" */
+    color: #dc3545; /* Vermelho */
+    font-weight: bold;
+}
+/* >>> ADIÇÃO: Classe para status de conclusão nos cards principais <<< */
+.status-completed { /* Para quando o envio/recebimento terminar com sucesso (nos cards principais) */
+    color: #28a745; /* Mesmo verde do OK */
+    font-weight: bold;
+}
+
+
+.status-frames-container {
+    display: flex;
+    flex-direction: column;
+}
+.status-frames {
+    justify-items: left;
+    color: #0056b3;
+    font-size: smaller;
+    font-weight: bold;
+}
+
+/* File Panel */
+.file-info {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-top: -5px;
+    margin-bottom: 15px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    height: 25px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #28a745;
+    width: 0%;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
+
+.progress-percentage-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(0, 0, 0); /* Cor do texto */
+    font-weight: bold;
+    font-size: 0.9em;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ---------------------------------------------------- */
+/* >>> NOVAS CLASSES DE STATUS PARA O CARD DE CONECTIVIDADE POST <<< */
+/* Estas classes são aplicadas via applyConnectivityStatusClass(element, status) no script.js */
+/* Note que elas são mais específicas para o card de conectividade */
+/* ---------------------------------------------------- */
+
+/* Connectivity Status Card (o card POST) */
+.status-connectivity-card {
+    /* Pode adicionar estilos de card aqui se este não usar a classe .card principal */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.status-connectivity-card h2 {
+    /* Seus estilos para o h2 dentro deste card */
+    margin-bottom: 15px;
+    color: #007bff; /* Ou a cor que preferir para o título deste card */
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+
+.status-connectivity-card .connectivity-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.status-connectivity-card .connectivity-item:last-child {
+    border-bottom: none;
+}
+
+.status-connectivity-card .connectivity-icon {
+    height: 25px;
+    margin-right: 10px;
+}
+
+.status-connectivity-card p {
+    margin: 0;
+    flex-grow: 1;
+}
+
+/* >>> AQUI: as classes de status específicas para os SPANS DENTRO do card POST <<< */
+/* Elas têm um background-color e border para serem mais visíveis */
+.status-connectivity-card .status-ok { /* Para o span do status 'OK' no card POST */
+    background-color: #e6ffe6; /* Verde muito claro */
+    color: #28a745; /* Verde mais escuro */
+    border: 1px solid #28a745;
+    padding: 4px 10px; /* Adicionado padding para parecer um "badge" */
+    border-radius: 5px;
+    font-weight: bold;
+    min-width: 90px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.status-connectivity-card .status-nok { /* Para o span do status 'Sem Conexão', 'Erro', etc. no card POST */
+    background-color: #ffe6e6; /* Vermelho muito claro */
+    color: #dc3545; /* Vermelho mais escuro */
+    border: 1px solid #dc3545;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    min-width: 90px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.status-connectivity-card .status-warning { /* Para o span do status 'Verificando', 'Aguardando', etc. no card POST */
+    background-color: #fffacd; /* Amarelo muito claro */
+    color: #ffc107; /* Amarelo mais escuro */
+    border: 1px solid #ffc107;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    min-width: 90px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+
+/* Outros estilos */
+#icon_receptor {
+    transform: scaleX(-1);
+}
